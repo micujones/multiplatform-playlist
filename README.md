@@ -1,12 +1,37 @@
-# React + Vite
+# Multiplatform Playlist
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A multimedia PWA for web and mobile devices built with React, powered by Iframely. The app will provide users with a playlist interface and options to add media from diverse platforms to a playlist, edit and access their saved content, and share playlists.
 
-Currently, two official plugins are available:
+## Tools
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   ![Static Badge](https://img.shields.io/badge/react-222222?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+-   ![Static Badge](https://img.shields.io/badge/iframely-0037fe?style=for-the-badge)
+-   ![Static Badge](https://img.shields.io/badge/material_ui-0d0f10?style=for-the-badge&logo=mui&logoColor=007FFF)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clone repo
+
+```sh
+gh repo clone micujones/multiplatform-playlist
+```
+
+Install dependencies
+
+```sh
+npm install
+```
+
+## Usage
+
+### Connect to Iframely
+
+You will need an API key from [Iframely](https://iframely.com/signup). After creating an account, the API key will be available in the "Your API access" section of the dashboard. For additional security, this project utilizes the key hash endpoint (i.e., `https://iframe.ly/api/iframely?url={encoded_url}&key={your_key_hash}`).
+
+Add a `.env` file in the root of the directory. Copy the key hash from the dashboard and assign it to a variable like so:
+
+```ruby
+VITE_REACT_APP_KEY = your_key_hash
+```
+
+Note that for the React/Vite environment, `KEY` must be prefixed with `VITE_REACT_APP_`. Also, the fetch call that includes the interpolation of this environment variable is written as `import.meta.env.VITE_REACT_APP_KEY`, as opposed to the more common `process.env`, per Vite configuration requirements.
