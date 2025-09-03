@@ -6,17 +6,17 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 // UI components
 import TextField from '@mui/material/TextField';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
+// import Slide from '@mui/material/Slide';
 import { Fragment } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
+
+import './welcome-view.css';
 
 export const SignupView = (props) => {
     const [email, setEmail] = useState('');
@@ -35,7 +35,7 @@ export const SignupView = (props) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed up
-                showSnackBar();
+                handleSnackBar();
             })
             .catch((error) => {
                 console.error(error.message);
@@ -56,12 +56,8 @@ export const SignupView = (props) => {
     // Snack bar
     const [open, setOpen] = useState(false);
 
-    const showSnackBar = () => {
-        setOpen(true);
-    };
-
-    const closeSnackBar = () => {
-        setOpen(false);
+    const handleSnackBar = () => {
+        open === true ? setOpen(false) : setOpen(true);
     };
 
     const action = (
@@ -70,7 +66,7 @@ export const SignupView = (props) => {
                 size="small"
                 aria-label="close"
                 color="inherit"
-                onClick={closeSnackBar}
+                onClick={handleSnackBar}
             >
                 <CloseIcon fontSize="small" />
             </IconButton>
@@ -79,43 +75,60 @@ export const SignupView = (props) => {
 
     return (
         <>
-            <h1>Sign Up</h1>
-            <p>
-                Already a user? <a href="">Log In</a>
-            </p>
+            <div className="page-header">
+                <h1>Sign Up</h1>
+                <p>
+                    Have an account? <a href="">Log In</a>
+                </p>
+            </div>
 
-            <TextField label="Email" variant="standard" onInput={handleEmail} />
-            <InputLabel htmlFor="standard-adornment-password">
-                Password
-            </InputLabel>
-            <Input
-                type={showPassword ? 'text' : 'password'}
-                onInput={handlePassword}
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label={
-                                showPassword
-                                    ? 'hide the password'
-                                    : 'display the password'
-                            }
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            onMouseUp={handleMouseUpPassword}
-                        >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                    </InputAdornment>
-                }
-            />
-            <Button variant="contained" onClick={handleSignup}>
-                Submit
-            </Button>
+            <br />
+            <div className="user-form">
+                <TextField
+                    label="Email"
+                    variant="standard"
+                    onInput={handleEmail}
+                />
+                <TextField
+                    label="Password"
+                    variant="standard"
+                    type={showPassword ? 'text' : 'password'}
+                    onInput={handlePassword}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label={
+                                            showPassword
+                                                ? 'hide the password'
+                                                : 'display the password'
+                                        }
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        onMouseUp={handleMouseUpPassword}
+                                    >
+                                        {showPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        },
+                    }}
+                />
+                <Button variant="contained" onClick={handleSignup}>
+                    Sign up
+                </Button>
+            </div>
+
             <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 open={open}
                 autoHideDuration={4000}
-                onClose={closeSnackBar}
+                onClose={handleSnackBar}
                 message="Sign up successful!"
                 action={action}
             />
