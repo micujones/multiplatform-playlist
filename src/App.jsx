@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 // Authentication components
 import { SignupView } from '../components/welcome-view/signup-view';
+import { LoginView } from '../components/welcome-view/login-view';
 
 // Components
 import { PlaylistView } from '../components/playlist-view/playlist-view';
@@ -84,7 +85,7 @@ function App() {
                 </>
             ) : (
                 <>
-                    <SignupView setUser={setUser} />
+                    <LoginView setUser={setUser} />
                 </>
             )}
         </>
