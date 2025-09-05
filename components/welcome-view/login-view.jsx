@@ -5,6 +5,7 @@ import { auth } from '../../server/firebase.config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { UserForm } from './user-form';
+import { Link } from 'react-router';
 
 import './welcome-view.css';
 
@@ -15,9 +16,8 @@ export const LoginView = ({ setUser }) => {
     const handleSubmit = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in
+                // Logged in
                 setUser(userCredential.user);
-                console.log(userCredential.user);
             })
             .catch((error) => {
                 console.error(error.message);
@@ -29,7 +29,7 @@ export const LoginView = ({ setUser }) => {
             <div className="page-header">
                 <h1>Log In</h1>
                 <p>
-                    Don't have an account? <a href="">Sign up</a>
+                    Don't have an account? <Link to="/signup">Sign up</Link>
                 </p>
             </div>
             <UserForm

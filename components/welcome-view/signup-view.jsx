@@ -1,56 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // Authentication
 import { auth } from '../../server/firebase.config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
+import { UserForm } from './user-form';
+
 // UI components
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 // import Slide from '@mui/material/Slide';
 import { Fragment } from 'react';
+import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+
+// Navigation
+import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import './welcome-view.css';
 
 export const SignupView = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
 
-    const handleEmail = (event) => {
-        setEmail(event.target.value);
-    };
-
-    const handlePassword = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const handleSignup = () => {
+    let navigate = useNavigate();
+    const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed up
                 handleSnackBar();
+                navigate('/login');
             })
             .catch((error) => {
                 console.error(error.message);
             });
-    };
-
-    // Password UI functions
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-    const handleMouseUpPassword = (event) => {
-        event.preventDefault();
     };
 
     // Snack bar
@@ -78,51 +61,15 @@ export const SignupView = (props) => {
             <div className="page-header">
                 <h1>Sign Up</h1>
                 <p>
-                    Have an account? <a href="">Log In</a>
+                    Have an account? <Link to="/login">Log in</Link>
                 </p>
             </div>
-
-            <br />
-            <div className="user-form">
-                <TextField
-                    label="Email"
-                    variant="standard"
-                    onInput={handleEmail}
-                />
-                <TextField
-                    label="Password"
-                    variant="standard"
-                    type={showPassword ? 'text' : 'password'}
-                    onInput={handlePassword}
-                    slotProps={{
-                        input: {
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label={
-                                            showPassword
-                                                ? 'hide the password'
-                                                : 'display the password'
-                                        }
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        onMouseUp={handleMouseUpPassword}
-                                    >
-                                        {showPassword ? (
-                                            <VisibilityOff />
-                                        ) : (
-                                            <Visibility />
-                                        )}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        },
-                    }}
-                />
-                <Button variant="contained" onClick={handleSignup}>
-                    Sign up
-                </Button>
-            </div>
+            <UserForm
+                setEmail={setEmail}
+                setPassword={setPassword}
+                handleSubmit={handleSubmit}
+                submitText="Sign up"
+            />
 
             <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
