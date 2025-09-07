@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // Authentication
 import { auth } from '../../server/firebase.config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import { UserForm } from './user-form';
 
@@ -22,12 +22,19 @@ import './welcome-view.css';
 export const SignupView = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     let navigate = useNavigate();
     const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed up
+                const currentUser = userCredential.user;
+                updateProfile(auth.currentUser, {
+                    displayName: `${username}`,
+                });
+            })
+            .then(() => {
                 handleSnackBar();
                 navigate('/login');
             })
@@ -67,6 +74,7 @@ export const SignupView = (props) => {
             <UserForm
                 setEmail={setEmail}
                 setPassword={setPassword}
+                setUsername={setUsername}
                 handleSubmit={handleSubmit}
                 submitText="Sign up"
             />

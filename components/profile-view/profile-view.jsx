@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const ProfileView = ({ user, setUser }) => {
     const logout = () => {
@@ -9,7 +9,7 @@ export const ProfileView = ({ user, setUser }) => {
     return (
         <>
             <button onClick={logout}>Logout</button>
-            <h1>Username</h1>
+            <h1>{user.displayName}</h1>
             <p>{user.email}</p>
         </>
     );
