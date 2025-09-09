@@ -14,11 +14,12 @@ import { db } from './firebase.config';
 import { collection, addDoc } from 'firebase/firestore';
 
 // Create a user document in collection "users"
-export const createUserDoc = async (username, email) => {
+export const createUserDoc = async (user) => {
     try {
         const docRef = await addDoc(collection(db, 'users'), {
-            username: username,
-            email: email,
+            uid: user.uid,
+            username: user.displayName,
+            email: user.email,
             playlists: [],
         });
         console.log('Document written with ID: ', docRef.id);

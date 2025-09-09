@@ -38,7 +38,7 @@ export const SignupView = (props) => {
             })
             .then(async (user) => {
                 console.log(user);
-                await createUserDoc(user.displayName, user.email);
+                await createUserDoc(user);
             })
             .then(() => {
                 handleSnackBar();
