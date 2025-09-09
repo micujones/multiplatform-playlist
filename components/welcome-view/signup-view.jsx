@@ -18,6 +18,7 @@ import { Link } from 'react-router';
 import { useNavigate } from 'react-router';
 
 import './welcome-view.css';
+import { createUserDoc } from '../../server/db';
 
 export const SignupView = (props) => {
     const [email, setEmail] = useState('');
@@ -27,12 +28,17 @@ export const SignupView = (props) => {
     let navigate = useNavigate();
     const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 // Signed up
                 const currentUser = userCredential.user;
-                updateProfile(auth.currentUser, {
+                await updateProfile(auth.currentUser, {
                     displayName: `${username}`,
                 });
+                return currentUser;
+            })
+            .then(async (user) => {
+                console.log(user);
+                await createUserDoc(user.displayName, user.email);
             })
             .then(() => {
                 handleSnackBar();
