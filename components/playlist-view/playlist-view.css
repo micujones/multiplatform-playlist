@@ -1,0 +1,8 @@
+.playlist-header {
+    padding: 12px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}

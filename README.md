@@ -5,7 +5,9 @@ A multimedia PWA for web and mobile devices built with React, powered by Iframel
 ## Tools
 
 -   ![Static Badge](https://img.shields.io/badge/react-222222?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+-   ![Static Badge](https://img.shields.io/badge/React%20Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=%23ffffff)
 -   ![Static Badge](https://img.shields.io/badge/iframely-0037fe?style=for-the-badge)
+-   ![Static Badge](https://img.shields.io/badge/Firebase-DD2C00?style=for-the-badge&logo=firebase&logoColor=%23ffffff)
 -   ![Static Badge](https://img.shields.io/badge/material_ui-0d0f10?style=for-the-badge&logo=mui&logoColor=007FFF)
 
 ## Installation

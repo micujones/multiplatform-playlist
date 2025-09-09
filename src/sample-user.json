@@ -1,0 +1,43 @@
+{
+    "username": "mrincredible",
+    "password": "testingtesting",
+    "playlists": [
+        {
+            "title": "Reagan ruined everything",
+            "description": "How this 80s president manufactured our economic crisis today #FightingOligarchy",
+            "entries": [
+                {
+                    "title": "How Reagan Ruined Everything",
+                    "url": "https://youtu.be/l7dHvqA-WB4?si=InAmdR3QRBmgnlY3",
+                    "note": ""
+                },
+                {
+                    "title": "Here's Why Reaganomics is so Controversial",
+                    "url": "https://youtu.be/EeyGdy_SdhQ?si=-L_fqAOKpgdozbK0",
+                    "note": ""
+                },
+                {
+                    "title": "",
+                    "url": "https://www.tiktok.com/@thisiscory/video/7364967458333134126",
+                    "note": ""
+                },
+                {
+                    "title": "Taxing the Rich: How America's Marginal Tax Rate Evolved",
+                    "url": "https://cdn.statcdn.com/Infographic/images/normal/16782.jpeg",
+                    "note": "The marginal tax rate decreases immensely after Reagan gets into office. This means that wealthy Americans keep more of their excess, instead of those dollars being funneled back into social relief programs."
+                }
+            ]
+        },
+        {
+            "title": "Socialism never seems to work...",
+            "description": "",
+            "entries": [
+                {
+                    "title": "",
+                    "url": "",
+                    "note": ""
+                }
+            ]
+        }
+    ]
+}
