@@ -1,0 +1,24 @@
+.page-header {
+    text-align: center;
+    margin: 48px 0;
+}
+
+.page-header h1,
+.page-header p {
+    margin: 8px 0;
+}
+
+.page-header,
+.user-form,
+.email-input,
+.password-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-form {
+    width: 70%;
+    max-width: 400px;
+    gap: 48px;
+    margin: 0 auto;
+}
