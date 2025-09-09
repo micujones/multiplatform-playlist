@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 export const UserForm = ({
     setEmail,
     setPassword,
+    setUsername,
     handleSubmit,
     submitText,
 }) => {
@@ -18,6 +19,10 @@ export const UserForm = ({
 
     const handleEmail = (event) => {
         setEmail(event.target.value);
+    };
+
+    const handleUsername = (event) => {
+        setUsername(event.target.value);
     };
 
     const handlePassword = (event) => {
@@ -38,6 +43,13 @@ export const UserForm = ({
     return (
         <div className="user-form">
             <TextField label="Email" variant="standard" onInput={handleEmail} />
+            {submitText === 'Sign up' ? (
+                <TextField
+                    label="Username"
+                    variant="standard"
+                    onInput={handleUsername}
+                />
+            ) : null}
             <TextField
                 label="Password"
                 variant="standard"

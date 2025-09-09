@@ -1,23 +1,29 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router';
 // import sampleUser from '/src/sample-user.json' with { type: 'json' };
 
-// Authentication components
+// Components
 import { SignupView } from '../components/welcome-view/signup-view';
 import { LoginView } from '../components/welcome-view/login-view';
-
-// Components
-import { PlaylistView } from '../components/playlist-view/playlist-view';
-import { NavigationView } from '../components/navigation-view/navigation-view';
+import { MainView } from '../components/main-view/main-view';
 
 function App() {
-    const [user, setUser] = useState(null);
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedToken = localStorage.getItem('token');
+    const [user, setUser] = useState(storedUser ? storedUser : null);
+    const [token, setToken] = useState(storedToken ? storedToken : null);
+
+    // Update locally stored user when updated
+    useEffect(() => {
+        localStorage.setItem('user', JSON.stringify(user));
+    }, [user]);
 
     const [currentPlaylistData, setcurrentPlaylistData] = useState(null);
     const [playlistIframes, setPlaylistIframes] = useState([]);
 
-    useEffect(() => {
-        if (user) setcurrentPlaylistData(user.playlists[0]);
-    }, [user]);
+    // useEffect(() => {
+    //     if (user) setcurrentPlaylistData(user.playlists[0]);
+    // }, [user]);
 
     // Update the playlist of iframes when the playlist changes
     useEffect(() => {
@@ -73,21 +79,32 @@ function App() {
 
     return (
         <>
-            {user ? (
-                <>
-                    {currentPlaylistData ? (
-                        <PlaylistView
-                            currentPlaylist={currentPlaylistData}
-                            user={user}
-                        />
-                    ) : null}
-                    <NavigationView />
-                </>
-            ) : (
-                <>
-                    <LoginView setUser={setUser} />
-                </>
-            )}
+            <Routes>
+                <Route
+                    index
+                    element={
+                        user ? (
+                            <MainView user={user} setUser={setUser} />
+                        ) : (
+                            <Navigate to="login" />
+                        )
+                    }
+                />
+                <Route
+                    path="login"
+                    element={
+                        user ? (
+                            <Navigate to="/" />
+                        ) : (
+                            <LoginView setUser={setUser} />
+                        )
+                    }
+                />
+                <Route
+                    path="signup"
+                    element={user ? <Navigate to="/" /> : <SignupView />}
+                />
+            </Routes>
         </>
     );
 }
